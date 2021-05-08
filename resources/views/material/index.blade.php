@@ -22,9 +22,10 @@ index 1.0
 
             @php
             $total_por_producto=0;
-            $total_por_producto+=$materiales->total_por_producto;
+            $total_por_producto =$materiales-> precio * $materiales-> stock;
+           
             @endphp
-            <td>{{$materiales-> total_por_producto}}</td>
+            <td>{{$total_por_producto}}</td>
 
 
             <td>Editar | Borrar</td>
