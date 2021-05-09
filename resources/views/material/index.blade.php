@@ -1,4 +1,15 @@
-index 1.0
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+@if(Session::has('mensaje'))
+{{
+    Session::get ('mensaje')
+}}
+@endif
+<a href="{{url ('material/create') }}" class="btn btn-success"> Registrar nuevo material</a>
+<br>
+<br>
 <table class="table table-light">
     <thead class="thead-light">
         <tr>
@@ -27,20 +38,22 @@ index 1.0
             @endphp
             <td>{{$total_por_producto}}</td>
 
-
+            <!-- sección de editar con validación -->
             <td>
-            <a href="{{ url('/material/'.$materiales->id.'/edit')}}">
+            <a href="{{ url('/material/'.$materiales->id.'/edit')}}" class="btn btn-warning">
             
             Editar 
             </a>
 
+
+            <!-- sección del botón borrar con validación -->
             @php
             if ($materiales-> stock==0){
             @endphp
-            <form method="post" action="{{url('/material/'.$materiales->id)}}">
+            <form method="post" action="{{url('/material/'.$materiales->id)}}" class="d-inline">
             @csrf
             {{ method_field('DELETE') }}
-                <input type="submit" value="Borrar" onclick="return confirm ('Quieres borrar?')">
+                <input type="submit" value="Borrar" onclick="return confirm ('Quieres borrar?')" class="btn btn-danger">
             </form>
             @php 
             }
@@ -51,3 +64,5 @@ index 1.0
         @endforeach
     </tbody>
 </table>
+</div>
+@endsection

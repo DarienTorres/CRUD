@@ -14,10 +14,10 @@ use App\Http\Controllers\MaterialesController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('material.index');
 });
 /*
@@ -27,4 +27,12 @@ Route::get('/material', function () {
 
 Route::get ('/material/create',[MaterialesController::class,'create']);
 */
-Route::resource('material',MaterialesController::class);
+Route::resource('material',MaterialesController::class)->middleware('auth');
+Auth::routes();
+
+Route::get('/home', [MaterialesController::class, 'index'])->name('home');
+
+Route::group(['middleware' => 'auth'],function(){
+    Route::get('/', [MaterialesController::class, 'index'])->name('home');
+    
+});

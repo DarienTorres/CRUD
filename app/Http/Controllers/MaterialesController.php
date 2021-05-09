@@ -15,7 +15,7 @@ class MaterialesController extends Controller
     public function index()
     {
         //
-        $datos['material']= Materiales::paginate(5);
+        $datos['material']= Materiales::paginate(10);
         return view('material.index',$datos);
     }
 
@@ -43,7 +43,8 @@ class MaterialesController extends Controller
         $datosMaterial=request()->except('_token','total_por_producto');
         Materiales::insert($datosMaterial);
         //total_por_producto=precio*stock;
-        return response()->json($datosMaterial);
+        //return response()->json($datosMaterial);
+        return redirect('material')->with('mensaje','material agregado');
         
     }
 
@@ -78,9 +79,15 @@ class MaterialesController extends Controller
      * @param  \App\Models\Materiales  $materiales
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Materiales $materiales)
+    public function update(Request $request, $id)
     {
         //
+        $datosMaterial=request()->except(['_token','_method']);
+        Materiales::where('id','=',$id)->update ($datosMaterial);
+
+
+        $materiales=Materiales::findOrFail($id);
+        return view('material.edit',compact('materiales'));
     }
 
     /**
@@ -95,6 +102,7 @@ class MaterialesController extends Controller
         
        
         Materiales::destroy($id);
-        return redirect ('material');
+        
+        return redirect('material')->with('mensaje','material eliminado');
     }
 }
