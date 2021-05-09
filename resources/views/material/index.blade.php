@@ -28,7 +28,19 @@ index 1.0
             <td>{{$total_por_producto}}</td>
 
 
-            <td>Editar | Borrar</td>
+            <td>Editar 
+            @php
+            if ($materiales-> stock==0){
+            @endphp
+            <form method="post" action="{{url('/material/'.$materiales->id)}}">
+            @csrf
+            {{ method_field('DELETE') }}
+                <input type="submit" value="Borrar" onclick="return confirm ('Quieres borrar?')">
+            </form>
+            @php 
+            }
+            @endphp
+            </td>
 
         </tr>
         @endforeach

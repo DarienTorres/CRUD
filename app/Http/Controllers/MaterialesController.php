@@ -87,8 +87,12 @@ class MaterialesController extends Controller
      * @param  \App\Models\Materiales  $materiales
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Materiales $materiales)
+    public function destroy($id)
     {
         //
+        
+       
+        Materiales::destroy($id);
+        return redirect ('material');
     }
 }
