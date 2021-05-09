@@ -28,7 +28,12 @@ index 1.0
             <td>{{$total_por_producto}}</td>
 
 
-            <td>Editar 
+            <td>
+            <a href="{{ url('/material/'.$materiales->id.'/edit')}}">
+            
+            Editar 
+            </a>
+
             @php
             if ($materiales-> stock==0){
             @endphp

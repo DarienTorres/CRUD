@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Materiales;
 use Illuminate\Http\Request;
-
+$id;
 class MaterialesController extends Controller
 {
     /**
@@ -64,9 +64,11 @@ class MaterialesController extends Controller
      * @param  \App\Models\Materiales  $materiales
      * @return \Illuminate\Http\Response
      */
-    public function edit(Materiales $materiales)
+    public function edit($id)
     {
         //
+        $materiales=Materiales::findOrFail($id);
+        return view('material.edit',compact('materiales'));
     }
 
     /**
